@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+    <title>Master/Details demo</title>
+    <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+    <h:form id="menu">
+        <div style="text-align: left">
+            <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+                <ace:menuItem value="Users" url="users_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Services" url="service_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Consumptions" url="consumption_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Payments" url="payment_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Statement" url="statement_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+            </ace:menuButton>
+        </div>
+    </h:form>
+
+    <h:form id="statement">
+        <h:panelGroup styleClass="componentBox">
+            <h:panelGroup style="border: 1px solid #CDCDCD;">
+                <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" style="float:left">
+                        <h:outputText value="Search Query:"/>
+                        <h:inputText id="searchQuery" value="#{statementDataTableBean.searchQuery}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:commandButton id="findNext" value="Find Next" actionListener="#{statementDataTableBean.find}"
+                                         style="float:left;"/>
+                        <h:commandButton id="reset" value="Reset" actionListener="#{statementDataTableBean.reset}"
+                                         style="float:left;"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:panelGroup>
+        </h:panelGroup>
+
+        <div style="text-align: center">
+            <ace:panel header="Statement List" toggleable="true" style="width: auto" collapsed="true">
+                <ace:dataTable id="statementTable"
+                               value="#{statementDataTableBean.statementEntityList}"
+                               selectionMode="single"
+                               var="statement"
+                               rowSelectListener="#{statementDataTableBean.selectionListener}"
+                               paginator="true"
+                               paginatorPosition="bottom"
+                               binding="#{dataTableBindings.tables[statementDataTableBean.clazz]}"
+                               rows="20">
+                    <ace:column id="id"
+                                headerText="ID"
+                                sortBy="#{statement.id}"
+                                filterBy="#{statement.id}"
+                                filterMatchMode="contains">#{statement.id}</ace:column>
+                    <ace:column id="consumptionEntity"
+                                headerText="Consumption ID"
+                                sortBy="#{statement.consumptionEntity.id}"
+                                filterBy="#{statement.consumptionEntity.id}"
+                                filterMatchMode="contains">#{statement.consumptionEntity.id}</ace:column>
+                    <ace:column id="paymentEntity"
+                                headerText="Last Payment ID"
+                                sortBy="#{statement.paymentEntity.id}"
+                                filterBy="#{statement.paymentEntity.id}"
+                                filterMatchMode="contains">#{statement.paymentEntity.id}</ace:column>
+                    <ace:column id="debt"
+                                headerText="Debt"
+                                sortBy="#{statement.debt}"
+                                filterBy="#{statement.debt}"
+                                filterMatchMode="contains"> #{statement.debt} </ace:column>
+                </ace:dataTable>
+            </ace:panel>
+        </div>
+    </h:form>
+</h:body>
+</html>

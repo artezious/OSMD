@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>VariousStaff.servlets_old.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/userlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServiceServlet</servlet-name>
+        <servlet-class>VariousStaff.servlets_old.ServiceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServiceServlet</servlet-name>
+        <url-pattern>/servicelist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ConsumptionServlet</servlet-name>
+        <servlet-class>VariousStaff.servlets_old.ConsumptionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConsumptionServlet</servlet-name>
+        <url-pattern>/consumptionlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>VariousStaff.servlets_old.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/paymentlist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StatementServlet</servlet-name>
+        <servlet-class>VariousStaff.servlets_old.StatementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StatementServlet</servlet-name>
+        <url-pattern>/statementlist</url-pattern>
+    </servlet-mapping>
+
+</web-app>

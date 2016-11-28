@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+    <title>Master/Details demo</title>
+    <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+    <h:form id="menu">
+        <div style="text-align: left">
+            <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+                <ace:menuItem value="Users" url="users_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Services" url="service_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Consumptions" url="consumption_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Payments" url="payment_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Statement" url="statement_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+            </ace:menuButton>
+            <h:panelGroup styleClass="componentBox" style="border: 1px solid #CDCDCD;">
+                <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" style="float:left">
+                        <h:outputText value="Search Query:"/>
+                        <h:inputText id="searchQuery" value="#{consumptionDataTableBean.searchQuery}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:commandButton id="findNext" value="Find Next"
+                                         actionListener="#{consumptionDataTableBean.find}"
+                                         style="float:left;"/>
+                        <h:commandButton id="reset" value="Reset" actionListener="#{consumptionDataTableBean.reset}"
+                                         style="float:left;"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:panelGroup>
+        </div>
+    </h:form>
+    <h:form id="consumptions">
+        <ace:panel header="Consumptions List" toggleable="true" style="width: auto" collapsed="true">
+            <ace:delegate id="tooltipDelegate">
+                <ace:dataTable id="consumptionTable"
+                               value="#{consumptionDataTableBean.consumptionEntityList}"
+                               selectionMode="single"
+                               var="consumption"
+                               rowSelectListener="#{consumptionDataTableBean.selectionListener}"
+                               paginator="true"
+                               paginatorPosition="bottom"
+                               binding="#{dataTableBindings.tables[consumptionDataTableBean.clazz]}"
+                               rows="20">
+                    <ace:column id="id"
+                                headerText="ID"
+                                sortBy="#{consumption.id}"
+                                filterBy="#{consumption.id}"
+                                filterMatchMode="contains">#{consumption.id}</ace:column>
+                    <ace:column id="userEntity"
+                                headerText="User ID"
+                                sortBy="#{consumption.userEntity.userId}"
+                                filterBy="#{consumption.userEntity.userId}"
+                                filterMatchMode="contains">#{consumption.userEntity.userId} </ace:column>
+                    <ace:column id="serviceEntity"
+                                headerText="Service ID"
+                                sortBy="#{consumption.serviceEntity.id}"
+                                filterBy="#{consumption.serviceEntity.id}"
+                                filterMatchMode="contains"> #{consumption.serviceEntity.id} </ace:column>
+                    <ace:column id="lv"
+                                headerText="Last value"
+                                sortBy="#{consumption.lv}"
+                                filterBy="#{consumption.lv}"
+                                filterMatchMode="contains"> #{consumption.lv} </ace:column>
+                    <ace:column id="rtv"
+                                headerText="Real Time Value"
+                                sortBy="#{consumption.rtv}"
+                                filterBy="#{consumption.rtv}"
+                                filterMatchMode="contains"> #{consumption.rtv} </ace:column>
+                    <ace:column id="consumed"
+                                headerText="Consumed"
+                                sortBy="#{consumption.consumed}"
+                                filterBy="#{consumption.consumed}"
+                                filterMatchMode="contains">#{consumption.consumed}</ace:column>
+                    <ace:column id="totalConsumed"
+                                headerText="Total Consumed"
+                                sortBy="#{consumption.totalConsumed}"
+                                filterBy="#{consumption.totalConsumed}"
+                                filterMatchMode="contains"> #{consumption.totalConsumed} </ace:column>
+                </ace:dataTable>
+            </ace:delegate>
+        </ace:panel>
+        <ace:tooltip id="tooltip" for="userEntity" forDelegate="tooltipDelegate" fetch="#{consumption}"
+                     store="#{delegateTooltipBean.data}" >
+            <h:outputText value="User Name: #{delegateTooltipBean.data.userEntity.name}"/><br/><br/>
+            <h:outputText value="Second Name: #{delegateTooltipBean.data.userEntity.surName}"/><br/><br/>
+            <h:outputText value="Address: #{delegateTooltipBean.data.userEntity.address}"/><br/><br/>
+            <h:outputText value="Email: #{delegateTooltipBean.data.userEntity.email}"/>
+        </ace:tooltip>
+    </h:form>
+</h:body>
+</html>

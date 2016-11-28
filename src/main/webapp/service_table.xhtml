@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+    <title>Master/Details demo</title>
+    <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+    <h:form id="menu">
+        <div style="text-align: left">
+            <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+                <ace:menuItem value="Users" url="users_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Services" url="service_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Consumptions" url="consumption_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Payments" url="payment_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Statement" url="statement_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+            </ace:menuButton>
+            <h:panelGroup styleClass="componentBox">
+                <h:panelGroup style="border: 1px solid #CDCDCD;">
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" style="float:left">
+                            <h:outputText value="Search Query:"/>
+                            <h:inputText id="searchQuery" value="#{serviceDataTableBean.searchQuery}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="findNext" value="Find Next" actionListener="#{serviceDataTableBean.find}"
+                                             style="float:left;"/>
+                            <h:commandButton id="reset" value="Reset" actionListener="#{serviceDataTableBean.reset}"
+                                             style="float:left;"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGroup>
+        </div>
+    </h:form>
+    <h:form id="services">
+        <div style="text-align: center">
+            <ace:panel header="Service List" toggleable="true" style="width: auto" collapsed="true">
+                <ace:dataTable id="serviceTable"
+                               value="#{serviceDataTableBean.serviceEntityList}"
+                               selectionMode="single"
+                               var="service"
+                               rowSelectListener="#{serviceDataTableBean.selectionListener}"
+                               paginator="true"
+                               paginatorPosition="bottom"
+                               binding="#{dataTableBindings.tables[serviceDataTableBean.clazz]}"
+                               rows="20">
+                    <ace:column id="id"
+                                headerText="ID"
+                                sortBy="#{service.id}"
+                                filterBy="#{service.id}"
+                                filterMatchMode="contains">#{service.id}</ace:column>
+                    <ace:column id="servicename"
+                                headerText="Service Name"
+                                sortBy="#{service.servicename}"
+                                filterBy="#{service.servicename}"
+                                filterMatchMode="contains"> #{service.servicename} </ace:column>
+                    <ace:column id="tariff"
+                                headerText="Tariff"
+                                sortBy="#{service.tariff}"
+                                filterBy="#{service.tariff}"
+                                filterMatchMode="contains">#{service.tariff}</ace:column>
+                </ace:dataTable>
+            </ace:panel>
+        </div>
+    </h:form>
+</h:body>
+</html>

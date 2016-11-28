@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+  <title>Master/Details demo</title>
+  <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+
+  <h:form id="users">
+    <div style="text-align: center">
+      <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+        <ace:menuItem value="ICEfaces" url="http://www.icefaces.org" target="_blank"
+                      icon="ui-icon ui-icon-home"/>
+      </ace:menuButton>
+      <ace:panel header="Users List" toggleable="true" style="width: auto" collapsed="true">
+        <ace:dataTable id="userTable"
+                       value="#{userDataTableBean.userEntityList}"
+                       selectionMode="single"
+                       var="user"
+                       rowSelectListener="#{userDataTableBean.selectionListener}"
+                       paginator="true"
+                       paginatorPosition="bottom"
+                       rows="20">
+          <ace:column id="id" headerText="ID" sortBy="#{user.userId}" filterBy="#{user.userId}" filterMatchMode="contains">#{user.userId}</ace:column>
+          <ace:column id="name" headerText="First Name" sortBy="#{user.userName}" filterBy="#{user.userName}" filterMatchMode="contains"> #{user.userName} </ace:column>
+          <ace:column id="surname" headerText="Surname" sortBy="#{user.userSurname}" filterBy="#{user.userSurname}" filterMatchMode="contains">#{user.userSurname}</ace:column>
+          <ace:column id="address" headerText="Address" sortBy="#{user.userAddress}" filterBy="#{user.userAddress}" filterMatchMode="contains">#{user.userAddress}</ace:column>
+          <ace:column id="telephone" headerText="Telephone" sortBy="#{user.userTelephone}" filterBy="#{user.userTelephone}" filterMatchMode="contains">#{user.userTelephone}</ace:column>
+          <ace:column id="email" headerText="Email" sortBy="#{user.userEmail}" filterBy="#{user.userEmail}" filterMatchMode="contains">#{user.userEmail}</ace:column>
+        </ace:dataTable>
+      </ace:panel>
+    </div>
+  </h:form>
+
+  <h:form id="services">
+    <div style="text-align: center">
+      <ace:panel header="Service List" toggleable="true" style="width: auto" collapsed="true">
+        <ace:dataTable id="serviceTable" value="#{serviceDataTableBean.serviceEntityList}"
+                       selectionMode="single" var="service"
+                       rowSelectListener="#{serviceDataTableBean.selectionListener}">
+          <ace:column id="id" headerText="ID">#{service.id}</ace:column>
+          <ace:column id="name" headerText="Service Name"> #{service.servicename} </ace:column>
+          <ace:column id="tariff" headerText="Tariff">#{service.tariff}</ace:column>
+          </ace:dataTable>
+      </ace:panel>
+    </div>
+  </h:form>
+
+  <h:form id="consumptions">
+    <div style="text-align: center">
+      <ace:panel header="Consumptions List" toggleable="true" style="width: auto" collapsed="true">
+        <ace:dataTable id="consumptionTable" value="#{consumptionDataTableBean.consumptionEntityList}"
+                       selectionMode="single" var="consumption"
+                       rowSelectListener="#{consumptionDataTableBean.selectionListener}">
+          <ace:column id="id" headerText="ID">#{consumption.id}</ace:column>
+          <ace:column id="lv" headerText="Last value"> #{consumption.lv} </ace:column>
+          <ace:column id="rtv" headerText="Real Time Value"> #{consumption.rtv} </ace:column>
+          <ace:column id="consumed" headerText="Consumed">#{consumption.consumed}</ace:column>
+          <ace:column id="totalConsumed" headerText="Total Consumed"> #{consumption.totalConsumed} </ace:column>
+        </ace:dataTable>
+      </ace:panel>
+    </div>
+  </h:form>
+
+  <h:form id="payment">
+    <div style="text-align: center">
+      <ace:panel header="Payment List" toggleable="true" style="width: auto" collapsed="true">
+        <ace:dataTable id="paymentTable" value="#{paymentDataTableBean.paymentEntityList}"
+                       selectionMode="single" var="payment"
+                       rowSelectListener="#{paymentDataTableBean.selectionListener}">
+          <ace:column id="id" headerText="ID">#{payment.id}</ace:column>
+          <ace:column id="paid" headerText="Paid"> #{payment.paid} </ace:column>
+          <ace:column id="paymentDate" headerText="Payment Date"> #{payment.paymentDate} </ace:column>
+          </ace:dataTable>
+      </ace:panel>
+    </div>
+  </h:form>
+
+  <h:form id="statement">
+    <div style="text-align: center">
+      <ace:panel header="Statement List" toggleable="true" style="width: auto" collapsed="true">
+        <ace:dataTable id="statementTable" value="#{statementDataTableBean.statementEntityList}"
+                       selectionMode="single" var="statement"
+                       rowSelectListener="#{statementDataTableBean.selectionListener}">
+          <ace:column id="id" headerText="ID">#{statement.id}</ace:column>
+          <ace:column id="debt" headerText="Debt"> #{statement.debt} </ace:column>
+          </ace:dataTable>
+      </ace:panel>
+    </div>
+  </h:form>
+
+  <h:form id="details">
+    <div style="text-align:center">
+      <ace:panel header="User Details" toggleable="true"
+                 collapsed="#{userDataTableBean.detailsHidden}">
+        <ice:panelGrid columns="2" style="align-content: center">
+          <ice:outputLabel for="id" value="id"/>
+          <h:inputText id="id" disabled="true"
+                       value="#{userDataTableBean.userDetails.userId}" size="55">
+            <ace:ajax event="change" listener="#{userDataTableBean.changeListener}"/>
+          </h:inputText>
+          <ice:outputLabel for="name" value="First Name"/>
+          <h:inputText id="name"
+                       value="#{userDataTableBean.userDetails.userName}" size="55">
+            <ace:ajax event="change" listener="#{userDataTableBean.changeListener}"/>
+          </h:inputText>
+
+          <ice:outputLabel for="surname" value="Last Name"/>
+          <h:inputText id="surname"
+                       value="#{userDataTableBean.userDetails.userSurname}" size="55">
+            <ace:ajax event="change" listener="#{userDataTableBean.changeListener}"/>
+          </h:inputText>
+
+          <ice:outputLabel for="address" value="Address"/>
+          <h:inputText id="address"
+                       value="#{userDataTableBean.userDetails.userAddress}" size="55">
+            <ace:ajax event="change" listener="#{userDataTableBean.changeListener}"/>
+          </h:inputText>
+
+          <ice:outputLabel for="telephone" value="Telephone"/>
+          <h:inputText id="telephone"
+                       value="#{userDataTableBean.userDetails.userTelephone}" size="55">
+            <ace:ajax event="change" listener="#{userDataTableBean.changeListener}"/>
+          </h:inputText>
+
+          <ice:outputLabel for="email" value="Email"/>
+          <h:inputText id="email"
+                       value="#{userDataTableBean.userDetails.userEmail}" size="55">
+            <ace:ajax event="change" listener="#{userDataTableBean.changeListener}"/>
+          </h:inputText>
+
+          <f:facet name="footer">
+            <ice:commandButton value="Update Details"
+                               action="#{userDataTableBean.save}"/>
+          </f:facet>
+        </ice:panelGrid>
+      </ace:panel>
+    </div>
+  </h:form>
+
+</h:body>
+</html>

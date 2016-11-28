@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+    <title>Master/Details demo</title>
+    <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+
+    <h:form id="menu">
+        <div style="text-align: left">
+            <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+                <ace:menuItem value="Users" url="users_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Services" url="service_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Consumptions" url="consumption_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Payments" url="payment_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Statement" url="statement_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+            </ace:menuButton>
+        </div>
+    </h:form>
+</h:body>
+</html>

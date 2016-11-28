@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:head>
+    <title>Master/Details demo</title>
+    <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+    <h:form id="menu">
+        <div style="text-align: left">
+            <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+                <ace:menuItem value="Users" url="users_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Services" url="service_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Consumptions" url="consumption_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Payments" url="payment_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Statement" url="statement_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+            </ace:menuButton>
+            <h:panelGroup styleClass="componentBox">
+                <h:panelGroup style="border: 1px solid #CDCDCD;">
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" style="float:left">
+                            <h:outputText value="Search Query:"/>
+                            <h:inputText id="searchQuery" value="#{paymentDataTableBean.searchQuery}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="findNext" value="Find Next" actionListener="#{paymentDataTableBean.find}"
+                                             style="float:left;"/>
+                            <h:commandButton id="reset" value="Reset" actionListener="#{paymentDataTableBean.reset}"
+                                             style="float:left;"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGroup>
+        </div>
+    </h:form>
+    <h:form id="payment">
+        <div style="text-align: center">
+            <ace:panel header="Payment List" toggleable="true" style="width: auto" collapsed="true">
+                <ace:dataTable id="paymentTable"
+                               value="#{paymentDataTableBean.paymentEntityList}"
+                               selectionMode="single"
+                               var="payment"
+                               rowSelectListener="#{paymentDataTableBean.selectionListener}"
+                               paginator="true"
+                               paginatorPosition="bottom"
+                               binding="#{dataTableBindings.tables[paymentDataTableBean.clazz]}"
+                               rows="20">
+                    <ace:column id="id"
+                                headerText="ID"
+                                sortBy="#{payment.id}"
+                                filterBy="#{payment.id}"
+                                filterMatchMode="contains">#{payment.id}</ace:column>
+                    <ace:column id="consumptionEntity"
+                                headerText="Consumption ID"
+                                sortBy="#{payment.consumptionEntity.id}"
+                                filterBy="#{payment.consumptionEntity.id}"
+                                filterMatchMode="contains"> #{payment.consumptionEntity.id} </ace:column>
+            <!--        <ace:column id="consumed"
+                                headerText="Consumed"
+                                sortBy="#{payment.consumptionEntityID.consumed}"
+                                filterBy="#{payment.consumptionEntityID.consumed}"
+                                filterMatchMode="contains"> #{payment.consumptionEntityID.consumed} </ace:column>-->
+                    <ace:column id="paid"
+                                headerText="Paid"
+                                sortBy="#{payment.paid}"
+                                filterBy="#{payment.paid}"
+                                filterMatchMode="contains">#{payment.paid} </ace:column>
+                    <ace:column id="paymentDate"
+                                headerText="Payment Date"
+                                sortBy="#{payment.paymentDate}"
+                                filterBy="#{payment.paymentDate}"
+                                filterMatchMode="contains">#{payment.paymentDate} </ace:column>
+                </ace:dataTable>
+            </ace:panel>
+        </div>
+    </h:form>
+</h:body>
+</html>

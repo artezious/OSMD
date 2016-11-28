@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<h:head>
+    <title>Master/Details demo</title>
+    <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>
+</h:head>
+<h:body styleClass="ice-skin-rime">
+    <h:form id="menu">
+        <div style="text-align: left">
+            <ace:menuButton id="menuButton" effect="SLIDE" effectDuration="200" value="Menu Button">
+                <ace:menuItem value="Users" url="users_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Services" url="service_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Consumptions" url="consumption_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Payments" url="payment_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+                <ace:menuItem value="Statement" url="statement_table.xhtml"
+                              icon="ui-icon ui-icon-home"/>
+            </ace:menuButton>
+            <h:panelGroup styleClass="componentBox">
+                <h:panelGroup style="border: 1px solid #CDCDCD;">
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" style="float:left">
+                            <h:outputText value="Search Query:"/>
+                            <h:inputText id="searchQuery" value="#{userDataTableBean.searchQuery}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="findNext" value="Find Next" actionListener="#{userDataTableBean.find}"
+                                             style="float:left;"/>
+                            <h:commandButton id="reset" value="Reset" actionListener="#{userDataTableBean.reset}"
+                                             style="float:left;"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGroup>
+        </div>
+    </h:form>
+
+    <h:form id="users">
+        <div>
+            <ace:panel header="Users List" toggleable="true" style="width: auto" collapsed="true">
+                <ace:dataTable id="userTable"
+                               value="#{userDataTableBean.userEntityList}"
+                               selectionMode="single"
+                               var="user"
+                               rowSelectListener="#{userDataTableBean.selectionListener}"
+                               paginator="true"
+                               paginatorPosition="bottom"
+                               binding="#{dataTableBindings.tables[userDataTableBean.clazz]}"
+                               rows="20">
+                    <ace:column id="id" headerText="ID"
+                                sortBy="#{user.userId}"
+                                filterBy="#{user.userId}"
+                                filterMatchMode="contains">#{user.userId}</ace:column>
+                    <ace:column id="name"
+                                headerText="First Name"
+                                sortBy="#{user.userName}"
+                                filterBy="#{user.userName}"
+                                filterMatchMode="contains"> #{user.userName} </ace:column>
+                    <ace:column id="surname"
+                                headerText="Surname"
+                                sortBy="#{user.userSurname}"
+                                filterBy="#{user.userSurname}"
+                                filterMatchMode="contains">#{user.userSurname}</ace:column>
+                    <ace:column id="address"
+                                headerText="Address"
+                                sortBy="#{user.userAddress}"
+                                filterBy="#{user.userAddress}"
+                                filterMatchMode="contains">#{user.userAddress}</ace:column>
+                    <ace:column id="telephone"
+                                headerText="Telephone"
+                                sortBy="#{user.userTelephone}"
+                                filterBy="#{user.userTelephone}"
+                                filterMatchMode="contains">#{user.userTelephone}</ace:column>
+                    <ace:column id="email"
+                                headerText="Email"
+                                sortBy="#{user.userEmail}"
+                                filterBy="#{user.userEmail}"
+                                filterMatchMode="contains">#{user.userEmail}</ace:column>
+                </ace:dataTable>
+            </ace:panel>
+        </div>
+    </h:form>
+</h:body>
+</html>
